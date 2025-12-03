@@ -33,3 +33,12 @@ body {
 .field-validation-error {
   color: #ff0000;
 }
+
+.close-alert {
+    position: absolute;
+    top: -15px;
+    right: -10px;
+    border-radius: 15px;
+    width: 30px;
+    height: 31px;
+}
