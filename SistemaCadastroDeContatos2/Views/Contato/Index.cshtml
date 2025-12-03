@@ -12,15 +12,25 @@
         <a class="btn btn-primary" role="button" asp-controller="Contato" asp-action="Criar">Adicionar Novo Contato</a>
     </div>
 
-    <div class="alert alert-success" role="alert">
-        <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
-        This is a success alert—check it out!S
-    </div>
+    @if (TempData["MensagemSucesso"] != null)
+    {
+        <div class="alert alert-success" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemSucesso"]
+        </div>
+    }
 
-    <div class="alert alert-danger" role="alert">
-        <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
-        This is a danger alert—check it out!
-    </div>
+    @if (TempData["MensagemFalha"] != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+            @TempData["MensagemFalha"]
+        </div>
+    }
+
+
+
+    <br />
 
     <table class="table table-striped">
         <thead>

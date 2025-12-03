@@ -37,32 +37,70 @@ namespace SistemaCadastroDeContatos2.Controllers
 
         public IActionResult Apagar(int id)
         {
-            _contatoRepositorio.Excluir(id);
-            return RedirectToAction("Index");
+            try
+            {
+                bool apagado = _contatoRepositorio.Excluir(id);
+
+                if (apagado)
+                {
+                    TempData["MensagemSucesso"] = "Contato apagado com sucesso!";
+                }
+                else
+                {
+                    TempData["MensagemSucesso"] = "Não conseguimos apagador seu contato!";
+                }
+                    return RedirectToAction("Index");
+            }
+            catch (Exception erro )
+            {
+
+                TempData["MensagemFalha"] = $"Não conseguimos apagar seu contato! ERRO:{erro.Message}";
+                return RedirectToAction("Index"); ;
+            }
         }
 
         [HttpPost]
         public IActionResult Criar(ContatoModel contato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _contatoRepositorio.Adicionar(contato);
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _contatoRepositorio.Adicionar(contato);
+                    TempData["MensagemSucesso"] = "Contato cadastrado com sucesso!";
+                    return RedirectToAction("Index");
+                }
 
-            return View(contato);           
+                return View(contato);
+            }
+            catch (Exception erro)
+            {
+
+                TempData["MensagemFalha"] = $"Não conseguimos cadastrar seu contato! ERRO:{erro.Message}";
+                return RedirectToAction("Index"); 
+            }          
         }
 
         [HttpPost]
         public IActionResult Alterar(ContatoModel contato)
         {
-            if (ModelState.IsValid)
+            try
             {
-                _contatoRepositorio.Atualizar(contato);
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    _contatoRepositorio.Atualizar(contato);
+                    TempData["MensagemSucesso"] = "Contato alterado com sucesso!";
+                    return RedirectToAction("Index");
+                }
 
-            return View("Editar", contato);
+                return View("Editar", contato);
+            }
+            catch (Exception erro)
+            {
+
+                TempData["MensagemFalha"] = $"Não conseguimos alterar seu contato! ERRO:{erro.Message}";
+                return RedirectToAction("Index"); 
+            }
         }
 
     }
