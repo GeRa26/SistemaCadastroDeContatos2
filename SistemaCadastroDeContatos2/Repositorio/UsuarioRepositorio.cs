@@ -30,7 +30,6 @@ namespace SistemaCadastroDeContatos2.Repositorio
             usuarioDB.Login = usuario.Login;
             usuarioDB.Email = usuario.Email;
             usuarioDB.Perfil = usuario.Perfil;
-            usuarioDB.Senha = usuario.Senha;
             usuarioDB.DataAtualizacao = DateTime.Now;
 
             _bancoContext.Usuarios.Update(usuarioDB);
