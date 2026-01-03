@@ -1,0 +1,104 @@
+﻿@model LoginModel
+@{
+    Layout = "_LayoutDeslogado";
+    ViewData["Title"] = "Login";
+}
+
+@if (TempData["MensagemFalha"] != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <button type="button" class="btn btn-danger btn-sm close-alert">X</button>
+        @TempData["MensagemFalha"]
+    </div>
+}
+
+<section class="login-full d-flex justify-content-center align-items-center">
+    <div class="login-card-dark">
+        <h4 class="text-white fw-bold text-center mb-4">Login</h4>
+
+        <form asp-controller="Login" asp-action="Entrar" method="post" novalidate>
+            @Html.AntiForgeryToken()
+
+            <div class="input-group mb-3">
+                <span class="input-group-text bg-light-subtle border-0">
+                    <i class="bi bi-person"></i>
+                </span>
+                <input class="form-control form-control-lg field-light" asp-for="Login" placeholder="Usuário" />
+            </div>
+            @Html.ValidationMessageFor(m => m.Login, null, new { @class = "text-danger small" })
+
+            <div class="input-group mb-2">
+                <span class="input-group-text bg-light-subtle border-0">
+                    <i class="bi bi-lock"></i>
+                </span>
+                <input class="form-control form-control-lg field-light" asp-for="Senha" type="password" placeholder="Senha" />
+            </div>
+            @Html.ValidationMessageFor(m => m.Senha, null, new { @class = "text-danger small" })
+
+            <button type="submit" class="btn btn-light btn-login w-100" asp-controller="Login" asp-action="Entrar">Entrar</button>
+        </form>
+
+        <div class="text-center mt-3">
+            <small class="text-light-50">
+                Novo por aqui?
+                <a class="text-white text-decoration-none" asp-controller="Login" asp-action="Index">Cadastre-se</a>
+            </small>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        html, body {
+            height: 100%;
+        }
+
+        .login-full {
+            min-height: 100vh;
+            width: 100%;
+            /* fundo claro semelhante ao Index */
+            background: #f2f2f2;
+            padding: 1rem;
+        }
+
+        .login-card-dark {
+            width: 100%;
+            max-width: 420px;
+            background: rgba(15, 15, 15, 0.95); /* próximo ao painel esquerdo do Index */
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+        }
+
+        .field-light {
+            background: #f0eaea; /* semelhante aos campos do Index */
+            border: 0;
+        }
+
+        .btn-login {
+            border-radius: 24px;
+            padding: .7rem 1.5rem;
+            font-weight: 700;
+            letter-spacing: .5px;
+        }
+
+        .text-light-50 {
+            color: rgba(255,255,255,0.65);
+        }
+
+        .input-group-text {
+            border: 0;
+        }
+
+        .bg-light-subtle {
+            background: #faf4f4;
+        }
+        /* tom claro do lado direito do Index */
+
+        @@media (max-width: 768px) {
+            .login-card-dark {
+                padding: 1.5rem;
+            }
+        }
+    </style>
+}
